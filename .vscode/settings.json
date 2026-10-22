@@ -1,0 +1,7 @@
+{
+    "code-runner.executorMap": 
+    {
+        "cpp": "cd $dir && g++ -std=c++11 $fullFileName Persona.cpp Paciente.cpp Servicio.cpp -o hospital && $dir.\hospital"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
