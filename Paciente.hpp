@@ -1,16 +1,37 @@
 #pragma once
 #include "Persona.hpp"
 #include <string>
-using namespace std;
 
 class Paciente : public Persona
 {
     private:
-        string id;
-        string servicio;
+        std::string id;
+        std::string servicio;
+        float temperatura;
+        float presionArterial;
+        int dolor;
+        std::string tipoDolor;
+        int trauma;
+        int sintomasNeurologicos;
+        int requiereCirugia;
+        int diasHospitalizacion;
+
     public:
-        Paciente(string id, string nombre, int edad, string servicio);
-        string getId();
-        string getServicio();
+        Paciente(std::string id, std::string nombre, int edad, 
+                 float temperatura, float presionArterial, int dolor, 
+                 std::string tipoDolor, int trauma, int sintomasNeurologicos, 
+                 int requiereCirugia, int diasHospitalizacion);
+                 
+        std::string getId();
+        std::string getServicio();
+        void setServicio(std::string servicioAsignado); 
+        float getTemperatura();
+        float getPresionArterial();
+        int getDolor();
+        std::string getTipoDolor();
+        int getTrauma();
+        int getSintomasNeurologicos();
+        int getRequiereCirugia();
+        int getDiasHospitalizacion();
         ~Paciente();
 };

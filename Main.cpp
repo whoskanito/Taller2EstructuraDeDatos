@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include "Paciente.hpp"
 #include "Servicio.hpp"
 #include "Queue.hpp"
@@ -10,34 +11,32 @@ using namespace std;
 
 Paciente* extraerPaciente(string linea)
 {
-    string datos[4];
-    int indice = 0;
-
-    const char* inicio = linea.c_str(); 
-    const char* actual = inicio;
-
-    while (*actual != '\0') 
-    {
-        if (*actual == ';') 
-        {
-            datos[indice].assign(inicio, actual - inicio); 
-            indice++;
-            actual++;
-            
-            if (*actual == ' ') 
-            {
-                actual++; 
-            }
-            inicio = actual;
-        } 
-        else 
-        {
-            actual++; 
-        }
-    }
-    datos[indice].assign(inicio, actual - inicio);
-
-    return new Paciente(datos[0], datos[1], stoi(datos[2]), datos[3]);
+    stringstream ss(linea);
+    string dato;
+    string id, nombre, tipoDolor;
+    int edad, dolor, trauma, sintomasNeurologicos, requiereCirugia, diasHospitalizacion;
+    float temperatura, presionArterial;
+    getline(ss, id, ';');
+    getline(ss, nombre, ';');
+    getline(ss, dato, ';');
+    edad = stoi(dato);
+    getline(ss, dato, ';');
+    temperatura = stof(dato);
+    getline(ss, dato, ';');
+    presionArterial = stof(dato);
+    getline(ss, dato, ';');
+    dolor = stoi(dato);
+    getline(ss, tipoDolor, ';');
+    getline(ss, dato, ';');
+    trauma = stoi(dato);
+    getline(ss, dato, ';');
+    sintomasNeurologicos = stoi(dato);
+    getline(ss, dato, ';');
+    requiereCirugia = stoi(dato);
+    getline(ss, dato, ';');
+    diasHospitalizacion = stoi(dato);
+    return new Paciente(id, nombre, edad, temperatura, presionArterial, dolor, 
+                        tipoDolor, trauma, sintomasNeurologicos, requiereCirugia, diasHospitalizacion);
 }
 
 Servicio* buscarServicio(List<Servicio*>& hospital, string nombre) 
@@ -74,10 +73,13 @@ int main()
     {
         while (getline(archivo, linea)) 
         {
+            if (linea.empty()) continue; 
+
             Paciente* nuevo = extraerPaciente(linea);
             filaEspera.push(nuevo);
         }
         archivo.close();
+        cout << "Archivo pacientes.txt cargado correctamente.\n";
     } 
     else 
     {
@@ -118,10 +120,9 @@ int main()
                     if (filaEspera.isEmpty()) break; 
                     Paciente* p = filaEspera.front();
                     filaEspera.pop();
-
-                    cout << "ID: " << p->getId() << "\nNombre: " << p->getNombre() 
-                         << "\nEdad: " << p->getEdad() << "\nServicio: " << p->getServicio() << endl;
-
+                    cout << "\nID: " << p->getId() << "\nNombre: " << p->getNombre() 
+                         << "\nEdad: " << p->getEdad() << endl;
+                    cout << "Servicio actual (pre-evaluacion): " << p->getServicio() << endl;
                     Servicio* s = buscarServicio(hospital, p->getServicio());
                     if (s != nullptr) 
                     {
@@ -131,7 +132,7 @@ int main()
                     } 
                     else 
                     {
-                        cout << "Error: Servicio '" << p->getServicio() << "' no encontrado." << endl;
+                        cout << "Servicio '" << p->getServicio() << "' not yet unu.\n";
                     }
                 }
                 break;
@@ -165,7 +166,7 @@ int main()
             }
             case 3: 
             {
-                cout << "\n=== HISTORIAL DE ÚLTIMAS ATENCIONES DEL HOSPITAL ===" << endl;
+                cout << "\n=== HISTORIAL DE ULTIMAS ATENCIONES DEL HOSPITAL ===" << endl;
                 historial.mostrarHistorial();
                 break;
             }
@@ -184,19 +185,3 @@ int main()
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
