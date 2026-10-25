@@ -1,19 +1,18 @@
 #pragma once
 #include <string>
-#include "List.hpp"
+#include "ArbolAVL.hpp"
 #include "Paciente.hpp"
-using namespace std;
 
 class Servicio 
 {
     private:
-        string nombre;
-        List<Paciente*>* pacientes; 
+        std::string nombre;
+        ArbolAVL* pacientes;
         
     public:
-        Servicio(string nombre);
-        string getNombre();
+        Servicio(std::string nombre);
+        std::string getNombre();
         void agregarPaciente(Paciente* p);
-        List<Paciente*>* getPacientes();
+        ArbolAVL* getPacientes();
         ~Servicio();
 };

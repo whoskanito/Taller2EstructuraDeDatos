@@ -159,15 +159,20 @@ int main()
                 if (dep > 0 && dep <= hospital.getSize()) 
                 {
                     Servicio* s = hospital.get(dep - 1);
-                    List<Paciente*>* listaPacientes = s->getPacientes();
+                    ArbolAVL* arbol = s->getPacientes(); 
                     
                     cout << "\n=== ESTADO " << s->getNombre() << " ===" << endl;
-                    cout << "Pacientes en el departamento: " << listaPacientes->getSize() << endl;
                     
-                    for (int i = 0; i < listaPacientes->getSize(); i++) 
+                    if (arbol->estaVacio()) 
                     {
-                        Paciente* p = listaPacientes->get(i);
-                        cout << "- " << p->getNombre() << " (" << p->getEdad() << ")" << endl;
+                        cout << "Sin pacientes\n";
+                    } 
+                    else 
+                    {
+                        cout << "Altura del arbol AVL: " << arbol->obtenerAlturaArbol() << endl;
+                        cout << "Factor de balance raiz: " << arbol->obtenerBalanceRaiz() << endl;
+                        cout << "\n--- Pacientes (Recorrido Inorden) ---" << endl;
+                        arbol->mostrarInorden();
                     }
                 }
                 break;
