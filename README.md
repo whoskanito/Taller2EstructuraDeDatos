@@ -21,6 +21,9 @@ NodoDecision: Estructura para construir el árbol de clasificación de pacientes
 ### List, Queue, Stack, ArbolDecision
 Implementación de las estructura de datos de forma manual. El "ArbolDecision" se encarga de rutear a los pacientes a su servicio correspondiente.
 
+### Implementación de AVL
+Para la gestión y almacenamiento eficiente de los pacientes clasificados, el sistema implementa un Árbol AVL (Árbol Binario de Búsqueda Auto-balanceable) de forma independiente para cada uno de los 8 servicios del hospital.
+
 ### Persona, Paciente
 Clase padre e hija que representan pacientes dentro del hospital.
 
