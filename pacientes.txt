@@ -1,1 +1,5 @@
-001;Juan Perez;25;37.0;120;3;otro;0;0;0;0
+001;Juan Perez;14;36.0;120;1;otro;0;0;0;1
+002;Carlitos Rojas;10;37.0;110;2;otro;0;0;0;0
+003;Ana Silva;25;36.5;120;7;extremidad;1;0;1;5
+004;Don Pedro;60;37.2;150;6;pecho;0;0;0;2
+005;Luisa Perez;30;39.0;130;9;abdomen;0;0;0;0

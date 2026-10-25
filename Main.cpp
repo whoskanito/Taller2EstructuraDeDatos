@@ -7,6 +7,7 @@
 #include "Queue.hpp"
 #include "Stack.hpp"
 #include "List.hpp"
+#include "ArbolDecision.hpp"
 using namespace std;
 
 Paciente* extraerPaciente(string linea)
@@ -54,9 +55,11 @@ Servicio* buscarServicio(List<Servicio*>& hospital, string nombre)
 
 int main() 
 {
+
     Queue<Paciente*> filaEspera;
     Stack<Paciente*> historial;
     List<Servicio*> hospital;
+    ArbolDecision arbol;
 
     hospital.insertLast(new Servicio("Urgencias"));
     hospital.insertLast(new Servicio("Medicina General"));
@@ -122,17 +125,22 @@ int main()
                     filaEspera.pop();
                     cout << "\nID: " << p->getId() << "\nNombre: " << p->getNombre() 
                          << "\nEdad: " << p->getEdad() << endl;
-                    cout << "Servicio actual (pre-evaluacion): " << p->getServicio() << endl;
+
+                    string ruta = "";
+                    string servicioAsignado = arbol.clasificarPaciente(p, ruta);
+                    p->setServicio(servicioAsignado); 
+                    cout << "Ruta de clasificacion: " << ruta << endl;
+                    cout << "Servicio asignado: " << p->getServicio() << endl;
                     Servicio* s = buscarServicio(hospital, p->getServicio());
                     if (s != nullptr) 
                     {
                         s->agregarPaciente(p);
-                        cout << "Paciente enviado a " << s->getNombre() << ".\n" << endl;
+                        cout << "Paciente insertado en el servicio de " << s->getNombre() << ".\n" << endl;
                         historial.push(p);
                     } 
                     else 
                     {
-                        cout << "Servicio '" << p->getServicio() << "' not yet unu.\n";
+                        cout << "Error: El servicio '" << p->getServicio() << "' generado por el arbol no existe.\n";
                     }
                 }
                 break;
