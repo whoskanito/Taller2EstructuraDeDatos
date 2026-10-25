@@ -95,7 +95,7 @@ int main()
         cout << "\n=== HOSPITAL MARMAJA ===" << endl;
         cout << "1. Atender pacientes" << endl;
         cout << "2. Ver departamento" << endl;
-        cout << "3. Revisar historial de atencion" << endl;
+        cout << "3. Buscar paciente" << endl;
         cout << "4. Salir" << endl;
         cout << "Seleccionar opcion: ";
         cin >> opcion;
@@ -179,8 +179,50 @@ int main()
             }
             case 3: 
             {
-                cout << "\n=== HISTORIAL DE ULTIMAS ATENCIONES DEL HOSPITAL ===" << endl;
-                historial.mostrarHistorial();
+                cout << "\n=== BUSCAR PACIENTE ===" << endl;
+                string busqueda;
+                cout << "Indique el ID o Nombre del paciente: ";
+                cin.ignore(); 
+                getline(cin, busqueda);
+                cout << "Buscando en AVL..." << endl;
+                Paciente* encontrado = nullptr;
+                Servicio* servicioEncontrado = nullptr;
+                for (int i = 0; i < hospital.getSize(); i++) 
+                {
+                    Servicio* s = hospital.get(i);
+                    ArbolAVL* arbol = s->getPacientes();
+                    encontrado = arbol->buscar(busqueda);
+                    if (encontrado == nullptr) 
+                    {
+                        encontrado = arbol->buscarPorNombre(busqueda);
+                    }
+                    if (encontrado != nullptr) 
+                    {
+                        servicioEncontrado = s;
+                        break;
+                    }
+                }
+                if (encontrado != nullptr) 
+                {
+                    cout << "Paciente encontrado :\n";
+                    cout << "------\n";
+                    cout << "ID: " << encontrado->getId() << "\n";
+                    cout << "Nombre : " << encontrado->getNombre() << "\n";
+                    cout << "Edad: " << encontrado->getEdad() << "\n";
+                    cout << "Departamento : " << servicioEncontrado->getNombre() << "\n";
+                    cout << "T: " << encontrado->getTemperatura() << " | ";
+                    cout << "D: " << encontrado->getDolor() << " | ";
+                    cout << "TD: " << encontrado->getTipoDolor() << " | ";
+                    cout << "T: " << (encontrado->getTrauma() ? "Si" : "No") << " | ";
+                    cout << "SN: " << (encontrado->getSintomasNeurologicos() ? "Si" : "No") << " | ";
+                    cout << "RC: " << (encontrado->getRequiereCirugia() ? "Si" : "No") << " | ";
+                    cout << "DH: " << encontrado->getDiasHospitalizacion() << "\n";
+                    cout << "------\n";
+                } 
+                else 
+                {
+                    cout << "Paciente no encontrado en ningun servicio del hospital.\n";
+                }
                 break;
             }
             case 4:

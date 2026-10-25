@@ -19,6 +19,7 @@ private:
     NodoAVL* buscarRecursivo(NodoAVL* nodo, std::string id);
     NodoAVL* eliminarRecursivo(NodoAVL* nodo, std::string id);
     NodoAVL* nodoValorMinimo(NodoAVL* nodo);
+    NodoAVL* buscarPorNombreRecursivo(NodoAVL* nodo, std::string nombre);
 
     void inordenRecursivo(NodoAVL* nodo);
     void preordenRecursivo(NodoAVL* nodo);
@@ -33,6 +34,7 @@ public:
     void insertar(Paciente* paciente);
     bool eliminar(std::string id);
     Paciente* buscar(std::string id);
+    Paciente* buscarPorNombre(std::string nombre);
 
     void mostrarInorden();
     void mostrarPreorden();

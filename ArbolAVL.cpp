@@ -113,6 +113,22 @@ Paciente* ArbolAVL::buscar(string id)
     return nullptr;
 }
 
+Paciente* ArbolAVL::buscarPorNombre(string nombre) 
+{
+    NodoAVL* resultado = buscarPorNombreRecursivo(raiz, nombre);
+    if (resultado != nullptr) return resultado->paciente;
+    return nullptr;
+}
+
+NodoAVL* ArbolAVL::buscarPorNombreRecursivo(NodoAVL* nodo, string nombre) 
+{
+    if (nodo == nullptr) return nullptr;
+    if (nodo->paciente->getNombre() == nombre) return nodo;
+    NodoAVL* izq = buscarPorNombreRecursivo(nodo->izquierdo, nombre);
+    if (izq != nullptr) return izq;
+    return buscarPorNombreRecursivo(nodo->derecho, nombre);
+}
+
 NodoAVL* ArbolAVL::buscarRecursivo(NodoAVL* nodo, string id) 
 {
     if (nodo == nullptr || nodo->paciente->getId() == id)
